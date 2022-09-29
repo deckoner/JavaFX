@@ -1,0 +1,18 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.tiutloLbl {
+    -fx-padding: 10;
+    -fx-font-size: 20;
+}
+
+.gradoLbl {
+	-fx-font-weight:bold
+	}
+
+.deporteCbx {
+	-fx-padding: 0 0 0 5;
+}
+
+.label {
+    -fx-padding: 0 0 0 5;
+	}
