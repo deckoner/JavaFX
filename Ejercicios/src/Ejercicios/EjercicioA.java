@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -110,9 +111,6 @@ public class EjercicioA extends Application {
         GridPane root = new GridPane();
         GridPane menuGenero = new GridPane();
         
-        //Aliniamos los nodos
-        GridPane.setHalignment(titutloLbl, HPos.CENTER);
-        GridPane.setHalignment(gradoLbl, HPos.CENTER);
                 
         //Hbox de la aplicacion
         VBox vboxPrueba = new VBox(40);
@@ -122,9 +120,11 @@ public class EjercicioA extends Application {
         FlowPane flow = new FlowPane();
         flow.getChildren().addAll(aceptarBtn, cancelarBtn);
         
-        
-        //Orden del Hbox
-        vboxPrueba.getChildren().addAll(cualLbl, deportes);
+        //Aliniamos los nodos
+        GridPane.setHalignment(titutloLbl, HPos.CENTER);
+        GridPane.setHalignment(gradoLbl, HPos.CENTER);
+        flow.setHgap(50);
+        flow.setAlignment(Pos.CENTER);;
         
         //orden del menuGenero
         menuGenero.add(hombreBtn, 0, 0, 1, 1);
@@ -163,7 +163,6 @@ public class EjercicioA extends Application {
         ColumnConstraints cc4 = new ColumnConstraints();
         
         cc4.setHgrow(Priority.ALWAYS);
-        
         root.getColumnConstraints().addAll(cc1,cc2,cc3,cc4);
 
         
@@ -174,12 +173,12 @@ public class EjercicioA extends Application {
         scene.getStylesheets().add(url);
         stage.show();
     }
-    private void crearAlerta(Window win, String txt, boolean error) {
+    private void crearAlerta(Window win, String txt, boolean error, String titulo) {
     	
     	if (error == true) {
     		
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(titulo);
             alert.initOwner(win);
             alert.setHeaderText(null);
             alert.setContentText(txt);
@@ -187,7 +186,7 @@ public class EjercicioA extends Application {
     	} else {
     		
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Info");
+            alert.setTitle(titulo);
             alert.initOwner(win);
             alert.setHeaderText(null);
             alert.setContentText(txt);
@@ -214,7 +213,7 @@ public class EjercicioA extends Application {
                 txt = txt + "Debes de elegir un deporte de la lista \n";
             }
             
-            crearAlerta(win, txt, true);
+            crearAlerta(win, txt, true, "Error");
         } else {
             
             if (deporteCbx.isSelected() == true) {
@@ -238,7 +237,7 @@ public class EjercicioA extends Application {
                         "Grado de aficcion a ver la television: " + String.valueOf(verTeleSlider.getValue()) + "\n" +
                         "Grado de aficcion a ir al cine: " + String.valueOf(cineSlider.getValue()));
                 
-                crearAlerta(win, txt, false);
+                crearAlerta(win, txt, false, "Informacion");
             }
 
         }
