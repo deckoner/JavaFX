@@ -53,7 +53,7 @@ public class EjercicioA extends Application {
     public void start(Stage stage) {
         
         //Labels de la aplicacion
-        Label titutloLbl = new Label("Encuesta");
+        Label titutloLbl = new Label("ENCUESTA");
         titutloLbl.getStyleClass().add("titutloLbl");
         Label profesionLbl = new Label("Profesion:");
         Label nHermanosLbl = new Label("N Hermanos:");
@@ -80,6 +80,7 @@ public class EjercicioA extends Application {
         mujerBtn = new RadioButton("Mujer");
         otroBtn = new RadioButton("Otro");
         ToggleGroup grupoGenero = new ToggleGroup();
+        
         //Activamos la primera opcion por defecto
         hombreBtn.setSelected(true);
 
@@ -115,6 +116,7 @@ public class EjercicioA extends Application {
         //Hbox de la aplicacion
         VBox vboxPrueba = new VBox(40);
         vboxPrueba.setSpacing(5);
+        vboxPrueba.getChildren().addAll(cualLbl, deportes);
         
         //creamos un FlowPane
         FlowPane flow = new FlowPane();
@@ -124,7 +126,7 @@ public class EjercicioA extends Application {
         GridPane.setHalignment(titutloLbl, HPos.CENTER);
         GridPane.setHalignment(gradoLbl, HPos.CENTER);
         flow.setHgap(50);
-        flow.setAlignment(Pos.CENTER);;
+        flow.setAlignment(Pos.CENTER);
         
         //orden del menuGenero
         menuGenero.add(hombreBtn, 0, 0, 1, 1);
@@ -173,6 +175,7 @@ public class EjercicioA extends Application {
         scene.getStylesheets().add(url);
         stage.show();
     }
+    
     private void crearAlerta(Window win, String txt, boolean error, String titulo) {
     	
     	if (error == true) {
@@ -226,7 +229,7 @@ public class EjercicioA extends Application {
                         "Grado de aficcion a ver la television: " + String.valueOf(verTeleSlider.getValue()) + "\n" +
                         "Grado de aficcion a ir al cine: " + String.valueOf(cineSlider.getValue()));
                 
-                crearAlerta(win, txt, false);
+                crearAlerta(win, txt, false, "Informacion");
             } else {
                 
                 txt = ("Profesion: " + profesionFld.getText() + "\n" +

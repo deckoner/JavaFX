@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,8 +13,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,8 +48,8 @@ public class EjercicioD extends Application  {
         //buttons de la aplicacion
         Button agregarPersonaBtn = new Button("Agregar Persona");
         agregarPersonaBtn.setOnAction(e -> nuevaEscena());
-		
-		
+        agregarPersonaBtn.setStyle("-fx-padding: 10 10 10 10;");
+	
 		//Inicializamos los TextFields
 		nombreFld = new TextField();
 		apellidosFld = new TextField();
@@ -68,6 +71,8 @@ public class EjercicioD extends Application  {
 		//Creacion de VBox
 		VBox vBox1 = new VBox(10);
 		vBox1.getChildren().addAll(table, agregarPersonaBtn);
+		vBox1.setAlignment(Pos.CENTER);
+		vBox1.setVgrow(table, Priority.ALWAYS);
 		
 		scene = new Scene(vBox1);
 		stage.setScene(scene);
@@ -75,7 +80,82 @@ public class EjercicioD extends Application  {
 		stage.show();
 	}
 	
-    private void anadirPersona(Window win) {
+    private void nuevaEscena() {
+    	
+    	Label nombreLbl = new Label("Nombre:");
+    	Label apellidosLbl = new Label("Apellidos:");
+    	Label edadLbl = new Label("Edad:");
+    	
+    	nombreFld = new TextField();
+		apellidosFld = new TextField();
+		edadFld = new TextField();
+    	
+        Button guardarBtn = new Button("Agregar Persona");
+        Button cancelarBtn = new Button("Cancelar");
+        cancelarBtn.setOnAction(e -> Platform.exit());
+		
+        GridPane root = new GridPane();
+		
+        //creamos un FlowPane
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(guardarBtn, cancelarBtn);
+        flow.setHgap(50);
+        flow.setAlignment(Pos.CENTER);
+        
+        root.add(nombreLbl, 0, 0, 1,1);
+        root.add(nombreFld, 1, 0, 1, 1);
+        root.add(apellidosLbl, 0, 1, 1, 1);
+        root.add(apellidosFld, 1, 1, 1, 1);
+        root.add(edadLbl, 0, 2, 1, 1);
+        root.add(edadFld, 1, 2, 1, 1);
+        root.add(flow, 0, 3, 2, 1);   
+        
+        root.setHgap(10);
+        root.setVgap(10);
+
+        Scene newScene = new Scene(root);
+        Stage newStage = new Stage();
+        
+        guardarBtn.setOnAction(e -> comprobarInformacion(newStage));
+        
+        newStage.setScene(newScene);
+        newStage.setTitle("Nueva persona");
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.show();
+        
+    }
+	
+	private void crearAlerta(Window win, String txt, boolean error, String titulo) {
+	    	
+	    	if (error == true) {
+	    		
+	            Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setTitle(titulo);
+	            alert.initOwner(win);
+	            alert.setHeaderText(null);
+	            alert.setContentText(txt);
+	            alert.showAndWait();
+	    	} else {
+	    		
+	            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	            alert.setTitle(titulo);
+	            alert.initOwner(win);
+	            alert.setHeaderText(null);
+	            alert.setContentText(txt);
+	            alert.showAndWait();
+	    	}
+	    }
+	
+	private void AgregarPersona(){
+		
+		//Creamos un objeto Persona con los datos introducidos por el usuario
+		Persona p = new Persona(nombreFld.getText(), apellidosFld.getText(), Integer.parseInt(edadFld.getText()));
+		
+		//añadimos la persona a la lista
+		personasLista.add(p);
+	}
+	
+    private void comprobarInformacion(Window win) {
     	
     	String txt = "";
     	
@@ -89,26 +169,14 @@ public class EjercicioD extends Application  {
     			
         		txt = "La persona introducida ya existe";
         		
-        		//Creamos una alerta que informe al usuario que se ha introducido correctamente los datos
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.initOwner(win);
-                alert.setHeaderText(null);
-                alert.setContentText(txt);
-                alert.showAndWait();
+        		crearAlerta(win, txt, true, "Error");
     		} else {
     			
-        		personasLista.add(p);
-        		
+    			AgregarPersona();
+    			
         		txt = "Se a introducido correctamente la persona a la tabla";
         		
-        		//Creamos una alerta que informe al usuario que se ha introducido correctamente los datos
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Info");
-                alert.initOwner(win);
-                alert.setHeaderText(null);
-                alert.setContentText(txt);
-                alert.showAndWait();
+        		crearAlerta(win, txt, false, "Informacion");
     		}
     	
         //si no es correcta se le avisara al usuario con un panel de error
@@ -130,13 +198,7 @@ public class EjercicioD extends Application  {
     			txt += "La edad introducida no es un numero \n";
     		}
     		
-    		//Creamos la ventana de error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.initOwner(win);
-            alert.setHeaderText(null);
-            alert.setContentText(txt);
-            alert.showAndWait();
+    		crearAlerta(win, txt, true, "Error");
     	}
     }
 
@@ -158,50 +220,16 @@ public class EjercicioD extends Application  {
 
     private boolean compararPersonas(Persona personaAnadir) {
     	
+    	Boolean personaRepetida = false;
+    	
     	for (Persona personaEnLista : personasLista) {
     		
     		if (personaEnLista.compararPersona(personaAnadir)) {
-    			
-    			return true;
-    		} else {
-    			
-    			return false;
-    		}	
+    			personaRepetida = true;
+    		}
 		}
     	
-    	return false;
-    }
-
-    private void nuevaEscena() {
-    	
-    	nombreFld = new TextField();
-		apellidosFld = new TextField();
-		edadFld = new TextField();
-    	
-        Button guardarBtn = new Button("Agregar Persona");
-        
-        Button cancelarBtn = new Button("Cancelar");
-        cancelarBtn.setOnAction(e -> Platform.exit());
-		
-        GridPane root = new GridPane();
-        
-		HBox hBox = new HBox(10);
-		hBox.getChildren().addAll(guardarBtn, cancelarBtn);
-
-        root.addRow(0, new Label("Nombre:"), nombreFld);
-        root.addRow(1, new Label("Apellido:"), apellidosFld);
-        root.addRow(2, new Label("Edad:"), edadFld);
-        root.addRow(3, hBox);
-        
-        Scene newScene = new Scene(root);
-        Stage newStage = new Stage();
-        
-        guardarBtn.setOnAction(e -> anadirPersona(newStage));
-
-        newStage.setScene(newScene);
-        newStage.setTitle("Nueva persona");
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        newStage.show();
-        
-    }
+    	return personaRepetida;    
+    	}
+    
 }

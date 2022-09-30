@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,8 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -43,7 +47,7 @@ public class EjercicioC extends Application  {
 				
         //buttons de la aplicacion
         Button agregarPersonaBtn = new Button("Agregar Persona");
-        agregarPersonaBtn.setOnAction(e -> mostrarAlerta(stage));
+        agregarPersonaBtn.setOnAction(e -> comprobarInformacion(stage));
         
         Button modificarBtn = new Button("Modificar");
         modificarBtn.setOnAction(e -> modificar(stage));
@@ -83,15 +87,26 @@ public class EjercicioC extends Application  {
 		vBox1.getChildren().addAll(nombreLbl, nombreFld,
 				ApellidosLbl, apellidosFld,
 				edadLbl, edadFld, agregarPersonaBtn);
-
-		//Creacion de VBox
-		HBox hBox = new HBox(10);
-		hBox.getChildren().addAll(modificarBtn, EliminarBtn);
+		
+        //creamos un FlowPane
+        FlowPane flow = new FlowPane();
+        flow.getChildren().addAll(modificarBtn, EliminarBtn);
+        flow.setHgap(50);
+        flow.setAlignment(Pos.CENTER);
 
 		//Ordenar GridPane
 		root.add(vBox1, 0, 0, 1, 1);
 		root.add(table, 1, 0, 1, 1);
-		root.add(hBox, 1, 1, 1, 1);
+		root.add(flow, 1, 1, 1, 1);
+		
+        ColumnConstraints cc1 = new ColumnConstraints();
+        ColumnConstraints cc2 = new ColumnConstraints();
+        RowConstraints rc2 = new RowConstraints();
+        
+        cc2.setHgrow(Priority.ALWAYS);
+        rc2.setVgrow(Priority.ALWAYS);
+        root.getColumnConstraints().addAll(cc1,cc2);
+        root.getRowConstraints().addAll(rc2);
 		
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -99,7 +114,37 @@ public class EjercicioC extends Application  {
 		stage.show();
 	}
 	
-    private void mostrarAlerta(Window win) {
+	private void crearAlerta(Window win, String txt, boolean error, String titulo) {
+    	
+    	if (error == true) {
+    		
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(titulo);
+            alert.initOwner(win);
+            alert.setHeaderText(null);
+            alert.setContentText(txt);
+            alert.showAndWait();
+    	} else {
+    		
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(titulo);
+            alert.initOwner(win);
+            alert.setHeaderText(null);
+            alert.setContentText(txt);
+            alert.showAndWait();
+    	}
+    }
+	
+	private void AgregarPersona(){
+		
+		//Creamos un objeto Persona con los datos introducidos por el usuario
+		Persona p = new Persona(nombreFld.getText(), apellidosFld.getText(), Integer.parseInt(edadFld.getText()));
+		
+		//añadimos la persona a la lista
+		personasLista.add(p);
+	}
+	
+    private void comprobarInformacion(Window win) {
     	
     	String txt = "";
     	
@@ -113,26 +158,14 @@ public class EjercicioC extends Application  {
     			
         		txt = "La persona introducida ya existe";
         		
-        		//Creamos una alerta que informe al usuario que se ha introducido correctamente los datos
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.initOwner(win);
-                alert.setHeaderText(null);
-                alert.setContentText(txt);
-                alert.showAndWait();
+        		crearAlerta(win, txt, true, "Error");
     		} else {
     			
-        		personasLista.add(p);
-        		
+    			AgregarPersona();
+    			
         		txt = "Se a introducido correctamente la persona a la tabla";
         		
-        		//Creamos una alerta que informe al usuario que se ha introducido correctamente los datos
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Info");
-                alert.initOwner(win);
-                alert.setHeaderText(null);
-                alert.setContentText(txt);
-                alert.showAndWait();
+        		crearAlerta(win, txt, false, "Informacion");
     		}
     	
         //si no es correcta se le avisara al usuario con un panel de error
@@ -154,13 +187,7 @@ public class EjercicioC extends Application  {
     			txt += "La edad introducida no es un numero \n";
     		}
     		
-    		//Creamos la ventana de error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.initOwner(win);
-            alert.setHeaderText(null);
-            alert.setContentText(txt);
-            alert.showAndWait();
+    		crearAlerta(win, txt, true, "Error");
     	}
     }
 
@@ -182,18 +209,16 @@ public class EjercicioC extends Application  {
 
     private boolean compararPersonas(Persona personaAnadir) {
     	
+    	Boolean personaRepetida = false;
+    	
     	for (Persona personaEnLista : personasLista) {
     		
     		if (personaEnLista.compararPersona(personaAnadir)) {
-    			
-    			return true;
-    		} else {
-    			
-    			return false;
-    		}	
+    			personaRepetida = true;
+    		}
 		}
     	
-    	return false;
+    	return personaRepetida;    
     }
 
     private void eliminar() {	
@@ -225,38 +250,30 @@ public class EjercicioC extends Application  {
         		Persona p = table.getSelectionModel().getSelectedItem();
         		Persona pModificada = new Persona(nombreFld.getText(), apellidosFld.getText(), Integer.parseInt(edadFld.getText()));
         		
-        		for (int i = 0; i < personasLista.size(); i++) {
-        			if (personasLista.get(i).equals(pModificada)) {
-        				
-        				txt = "Esta persona es exactemente igual a otra";
-        				
-                		//Creamos la ventana de error
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
-                        alert.initOwner(win);
-                        alert.setHeaderText(null);
-                        alert.setContentText(txt);
-                        alert.showAndWait();
-        			} else {
-        				
-        				p.setNombre(pModificada.getNombre());
-        				p.setApellidos(pModificada.getApellidos());
-        				p.setEdad(pModificada.getEdad());
-        				
-        				table.refresh();
-        				
-        				txt = "Persona modificada correctamente";
-        				
-                		//Creamos la ventana de error
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Informacion");
-                        alert.initOwner(win);
-                        alert.setHeaderText(null);
-                        alert.setContentText(txt);
-                        alert.showAndWait();
-        			}
+        		boolean repe = false;
+        		
+            	for (Persona personaEnLista : personasLista) {
+            		
+            		if (personaEnLista.compararPersona(pModificada)) {
+            			repe = true;
+            		}
         		}
         		
+        		if (repe == true) {
+        			
+    				txt = "Esta persona es exactemente igual a otra";
+    				crearAlerta(win, txt, true, "Error");
+        		} else {
+    				
+    				p.setNombre(pModificada.getNombre());
+    				p.setApellidos(pModificada.getApellidos());
+    				p.setEdad(pModificada.getEdad());
+    				
+    				table.refresh();
+    				
+    				txt = "Persona modificada correctamente";
+    				crearAlerta(win, txt, false, "informacion");
+        		}
         	} else {
         		
         		//Creamos el txt para el mensaje de error
@@ -275,13 +292,7 @@ public class EjercicioC extends Application  {
         			txt += "La edad introducida no es un numero \n";
         		}
         		
-        		//Creamos la ventana de error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.initOwner(win);
-                alert.setHeaderText(null);
-                alert.setContentText(txt);
-                alert.showAndWait();
+        		crearAlerta(win, txt, true, "Error");
         	}
     	}
     }

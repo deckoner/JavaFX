@@ -1,13 +1,13 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
-.tiutloLbl {
-    -fx-padding: 10;
-    -fx-font-size: 20;
+.titutloLbl {
+	-fx-font-weight:bold;
+	-fx-font-size:25;
 }
 
 .gradoLbl {
-	-fx-font-weight:bold
-	}
+	-fx-font-weight:bold;
+}
 
 .deporteCbx {
 	-fx-padding: 0 0 0 5;
@@ -15,4 +15,10 @@
 
 .label {
     -fx-padding: 0 0 0 5;
-	}
+}
+	
+.GridPane {
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
