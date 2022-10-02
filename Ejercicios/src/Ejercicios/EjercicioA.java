@@ -163,7 +163,6 @@ public class EjercicioA extends Application {
         ColumnConstraints cc2 = new ColumnConstraints();
         ColumnConstraints cc3 = new ColumnConstraints();
         ColumnConstraints cc4 = new ColumnConstraints();
-        
         cc4.setHgrow(Priority.ALWAYS);
         root.getColumnConstraints().addAll(cc1,cc2,cc3,cc4);
 

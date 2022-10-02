@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -47,7 +46,7 @@ public class EjercicioD extends Application  {
 				
         //buttons de la aplicacion
         Button agregarPersonaBtn = new Button("Agregar Persona");
-        agregarPersonaBtn.setOnAction(e -> nuevaEscena());
+        agregarPersonaBtn.setOnAction(e -> nuevaEscena(stage));
         agregarPersonaBtn.setStyle("-fx-padding: 10 10 10 10;");
 	
 		//Inicializamos los TextFields
@@ -80,28 +79,36 @@ public class EjercicioD extends Application  {
 		stage.show();
 	}
 	
-    private void nuevaEscena() {
+    private void nuevaEscena(Window win) {
     	
+		//Creamos el Stage de la ventana diciendole que es el hijo del anterior
+		Stage stage = new Stage();
+		stage.initOwner(win);
+    	
+    	//Creamos las etiquetas
     	Label nombreLbl = new Label("Nombre:");
     	Label apellidosLbl = new Label("Apellidos:");
     	Label edadLbl = new Label("Edad:");
     	
+    	//Inicializamos los textFields
     	nombreFld = new TextField();
 		apellidosFld = new TextField();
 		edadFld = new TextField();
     	
+		//Creamos los botones y le asignamos sus funciones
         Button guardarBtn = new Button("Agregar Persona");
+        guardarBtn.setOnAction(e -> comprobarInformacion(stage));
         Button cancelarBtn = new Button("Cancelar");
-        cancelarBtn.setOnAction(e -> Platform.exit());
-		
-        GridPane root = new GridPane();
-		
+        cancelarBtn.setOnAction(e -> stage.close());
+				
         //creamos un FlowPane
         FlowPane flow = new FlowPane();
         flow.getChildren().addAll(guardarBtn, cancelarBtn);
         flow.setHgap(50);
         flow.setAlignment(Pos.CENTER);
         
+        //Creamos el gridpanel y ponemos todos los nodos que tendra
+        GridPane root = new GridPane();
         root.add(nombreLbl, 0, 0, 1,1);
         root.add(nombreFld, 1, 0, 1, 1);
         root.add(apellidosLbl, 0, 1, 1, 1);
@@ -110,18 +117,17 @@ public class EjercicioD extends Application  {
         root.add(edadFld, 1, 2, 1, 1);
         root.add(flow, 0, 3, 2, 1);   
         
-        root.setHgap(10);
+        //Separacion de las columnas
+        root.setHgap(20);
         root.setVgap(10);
-
+                
+        //Creamos la nueva escena
         Scene newScene = new Scene(root);
-        Stage newStage = new Stage();
         
-        guardarBtn.setOnAction(e -> comprobarInformacion(newStage));
-        
-        newStage.setScene(newScene);
-        newStage.setTitle("Nueva persona");
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        newStage.show();
+        stage.setScene(newScene);
+        stage.setTitle("Nueva persona");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
         
     }
 	
@@ -230,6 +236,5 @@ public class EjercicioD extends Application  {
 		}
     	
     	return personaRepetida;    
-    	}
-    
+    	} 
 }
