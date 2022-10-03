@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <GridPane id="grid-pane" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="427.0" stylesheets="@../css/application.css" vgap="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CalculadoraControle">
   <columnConstraints>
@@ -34,7 +35,10 @@
       </Label>
       <Label text="Operador1:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
       <Label text="Operador2:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#calcular" text="Button" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#calcular" text="Button" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <graphic>
+            <FontIcon iconLiteral="fas-calculator" iconSize="24" />
+         </graphic></Button>
       <TextField fx:id="txtOperador1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="txtOperador2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="50.0" prefHeight="53.0" prefWidth="568.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">

@@ -1,7 +1,6 @@
 package Ejercicios;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -75,7 +74,7 @@ public class EjercicioD extends Application  {
 		
 		scene = new Scene(vBox1);
 		stage.setScene(scene);
-		stage.setTitle("Populating TableViews");
+		stage.setTitle("Populating TableViewsddddddddd");
 		stage.show();
 	}
 	

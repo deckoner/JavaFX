@@ -1,9 +1,12 @@
 package Ejercicios;
 
 import java.util.Arrays;
+import java.util.concurrent.Flow;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -51,14 +55,18 @@ public class EjercicioF extends Application  {
         Button agregarPersonaBtn = new Button("Agregar Persona");
         agregarPersonaBtn.setOnAction(e -> nuevaEscena(stage));
         
-        //buttons de la aplicacion
         Button modificarBtn = new Button("Modificar Persona");
         modificarBtn.setOnAction(e -> nuevaEscenaModificar(stage));
         
-        //buttons de la aplicacion
         Button eliminarBtn = new Button("Eliminar Persona");
         eliminarBtn.setOnAction(e -> eliminar());
-				
+        
+        Button importarBtn = new Button("Importar");
+
+        
+        Button exportarBtn = new Button("Exportar");
+
+        	
 		//Creamos una TableView y sus respectivas columnas
 	    TableColumn<Persona, String> nombreColum = new TableColumn<>("Nombre");
 	    nombreColum.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -73,19 +81,19 @@ public class EjercicioF extends Application  {
 	    table.getColumns().add(edadColum);
 		
 		//Creacion de VBox
-		HBox menuHBox = new HBox(10);
-		menuHBox.getChildren().addAll(agregarPersonaBtn, modificarBtn, eliminarBtn);
+	    FlowPane menuFlow = new FlowPane();
+		menuFlow.getChildren().addAll(agregarPersonaBtn, modificarBtn, eliminarBtn);
 		
-		HBox filtroHBox = new HBox(10);
-		filtroHBox.getChildren().addAll(filtroLbl, filtroFld);
+		FlowPane filtroFlow = new FlowPane();
+		filtroFlow.getChildren().addAll(filtroLbl, filtroFld, importarBtn, exportarBtn);
 		
 		//Creacion de VBox
 		VBox vBox1 = new VBox(10);
-		vBox1.getChildren().addAll(filtroHBox, table, menuHBox);
+		vBox1.getChildren().addAll(table, menuFlow, filtroFlow);
 		
 		scene = new Scene(vBox1);
 		stage.setScene(scene);
-		stage.setTitle("Populating TableViews");
+		stage.setTitle("Populating TableViewsXXX");
 		stage.show();
 	}
 	
