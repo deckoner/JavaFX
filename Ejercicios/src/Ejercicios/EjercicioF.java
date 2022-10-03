@@ -90,7 +90,7 @@ public class EjercicioF extends Application  {
 		
 		scene = new Scene(vBox1);
 		stage.setScene(scene);
-		stage.setTitle("Populating TableViewsXXX");
+		stage.setTitle("Populating TableViews");
 		stage.show();
 	}
 	
