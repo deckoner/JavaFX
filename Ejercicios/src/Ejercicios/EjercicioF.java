@@ -1,12 +1,9 @@
 package Ejercicios;
 
 import java.util.Arrays;
-import java.util.concurrent.Flow;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -89,7 +86,7 @@ public class EjercicioF extends Application  {
 		
 		//Creacion de VBox
 		VBox vBox1 = new VBox(10);
-		vBox1.getChildren().addAll(table, menuFlow, filtroFlow);
+		vBox1.getChildren().addAll(filtroFlow, table, menuFlow);
 		
 		scene = new Scene(vBox1);
 		stage.setScene(scene);
