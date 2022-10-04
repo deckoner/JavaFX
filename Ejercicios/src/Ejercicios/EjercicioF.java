@@ -1,9 +1,16 @@
 package Ejercicios;
 
 import java.util.Arrays;
+import java.util.function.Predicate;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -76,19 +83,59 @@ public class EjercicioF extends Application  {
 	    table.getColumns().add(nombreColum);
 	    table.getColumns().add(apellidoColum);
 	    table.getColumns().add(edadColum);
+	    
+	    //Borrar luego
+	    Persona p = new Persona("paquito", "tree", 45);
+		personasLista.add(p);
+	    Persona p1 = new Persona("pedro", "fre", 45);
+		personasLista.add(p1);
+	    Persona p2 = new Persona("David", "Lomano", 45);
+		personasLista.add(p2);
+	    Persona p3 = new Persona("Fernando", "De La Rosa", 45);
+		personasLista.add(p3);
+
+		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+		FilteredList<Persona> filteredData = new FilteredList<>(personasLista, p -> true);
+		
+		// 2. Set the filter Predicate whenever the filter changes.
+		TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(person -> {
+				// If filter text is empty, display all persons.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				
+				// Compare first name and last name of every person with filter text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				
+				if (person.getNombre().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches first name.
+				} else if (person.getApellidos().toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches last name.
+				}
+				return false; // Does not match.
+			});
+		});
+	    
+	    
+	    
+	    
 		
 		//Creacion de VBox
 	    FlowPane menuFlow = new FlowPane();
 		menuFlow.getChildren().addAll(agregarPersonaBtn, modificarBtn, eliminarBtn);
+		menuFlow.setHgap(50);
+		menuFlow.setAlignment(Pos.CENTER);
 		
 		FlowPane filtroFlow = new FlowPane();
 		filtroFlow.getChildren().addAll(filtroLbl, filtroFld, importarBtn, exportarBtn);
+		filtroFlow.setHgap(20);
 		
 		//Creacion de VBox
 		VBox vBox1 = new VBox(10);
 		vBox1.getChildren().addAll(filtroFlow, table, menuFlow);
 		
-		scene = new Scene(vBox1);
+		scene = new Scene(vBox1, 600, 500);
 		stage.setScene(scene);
 		stage.setTitle("Populating TableViews");
 		stage.show();
@@ -358,5 +405,7 @@ public class EjercicioF extends Application  {
         	}
     	}
     }
+
+
 }
 
