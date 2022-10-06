@@ -1,5 +1,8 @@
 package Ejercicios;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import javafx.application.Application;
@@ -10,6 +13,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -24,6 +28,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -66,10 +72,10 @@ public class EjercicioF extends Application  {
         eliminarBtn.setOnAction(e -> eliminar());
         
         Button importarBtn = new Button("Importar");
-
+        importarBtn.setOnAction(e -> importar(stage));
         
         Button exportarBtn = new Button("Exportar");
-
+        exportarBtn.setOnAction(e -> eliminar());
         	
 		//Creamos una TableView y sus respectivas columnas
 	    TableColumn<Persona, String> nombreColum = new TableColumn<>("Nombre");
@@ -85,42 +91,39 @@ public class EjercicioF extends Application  {
 	    table.getColumns().add(edadColum);
 	    
 	    //Borrar luego
-	    Persona p = new Persona("paquito", "tree", 45);
-		personasLista.add(p);
-	    Persona p1 = new Persona("pedro", "fre", 45);
+	    Persona p1 = new Persona("paquito", "tree", 45);
 		personasLista.add(p1);
-	    Persona p2 = new Persona("David", "Lomano", 45);
+	    Persona p2 = new Persona("pedro", "fre", 45);
 		personasLista.add(p2);
-	    Persona p3 = new Persona("Fernando", "De La Rosa", 45);
+	    Persona p3 = new Persona("David", "Lomano", 45);
 		personasLista.add(p3);
+	    Persona p4 = new Persona("Fernando", "De La Rosa", 45);
+		personasLista.add(p4);
 
-		// 1. Wrap the ObservableList in a FilteredList (initially display all data).
+		//Filtro para la tabla
 		FilteredList<Persona> filteredData = new FilteredList<>(personasLista, p -> true);
-		
-		// 2. Set the filter Predicate whenever the filter changes.
-		TextField.textProperty().addListener((observable, oldValue, newValue) -> {
+		filtroFld.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(person -> {
-				// If filter text is empty, display all persons.
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
+					
 				}
 				
-				// Compare first name and last name of every person with filter text.
 				String lowerCaseFilter = newValue.toLowerCase();
 				
 				if (person.getNombre().toLowerCase().contains(lowerCaseFilter)) {
-					return true; // Filter matches first name.
-				} else if (person.getApellidos().toLowerCase().contains(lowerCaseFilter)) {
-					return true; // Filter matches last name.
+					return true;
+					
 				}
+				
 				return false; // Does not match.
 			});
 		});
+		SortedList<Persona> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(table.comparatorProperty());
+		table.setItems(sortedData);
 	    
 	    
-	    
-	    
-		
 		//Creacion de VBox
 	    FlowPane menuFlow = new FlowPane();
 		menuFlow.getChildren().addAll(agregarPersonaBtn, modificarBtn, eliminarBtn);
@@ -405,7 +408,25 @@ public class EjercicioF extends Application  {
         	}
     	}
     }
-
-
+    
+    private void importar(Window ownerWindow) {
+    	
+    	FileChooser fileChosser = new FileChooser();
+    	
+		Path path = Paths.get("");
+		String directorioActual = path.toAbsolutePath().toString();
+    	
+    	fileChosser.setTitle("Importar");
+    	fileChosser.setInitialDirectory(new File(directorioActual));
+    	fileChosser.getExtensionFilters().add(new ExtensionFilter("Archivos csv", "*.csv"));
+    	fileChosser.setSelectedExtensionFilter(fileChosser.getSelectedExtensionFilter());
+    	fileChosser.showOpenDialog(ownerWindow);
+    	
+    }
+    
+    private void exportar() {
+    	
+    	
+    }
 }
 
