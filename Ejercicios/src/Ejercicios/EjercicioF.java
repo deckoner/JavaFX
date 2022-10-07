@@ -1,15 +1,14 @@
 package Ejercicios;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.function.Predicate;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,6 +27,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -75,8 +75,8 @@ public class EjercicioF extends Application  {
         importarBtn.setOnAction(e -> importar(stage));
         
         Button exportarBtn = new Button("Exportar");
-        exportarBtn.setOnAction(e -> eliminar());
-        	
+        exportarBtn.setOnAction(e -> exportar(stage));
+        
 		//Creamos una TableView y sus respectivas columnas
 	    TableColumn<Persona, String> nombreColum = new TableColumn<>("Nombre");
 	    nombreColum.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -420,13 +420,76 @@ public class EjercicioF extends Application  {
     	fileChosser.setInitialDirectory(new File(directorioActual));
     	fileChosser.getExtensionFilters().add(new ExtensionFilter("Archivos csv", "*.csv"));
     	fileChosser.setSelectedExtensionFilter(fileChosser.getSelectedExtensionFilter());
-    	fileChosser.showOpenDialog(ownerWindow);
+    	File f = fileChosser.showOpenDialog(ownerWindow);
     	
+    	personasLista.clear();
+    	
+    	BufferedReader bufferLectura = null;
+    	try {
+    		 //Abrir el .csv en buffer de lectura
+    		 bufferLectura = new BufferedReader(new FileReader(f.getPath()));
+    		 
+    		 //Leemos dos veces para saltarnos la cabecera
+	    	 String linea = bufferLectura.readLine();
+	    	 linea = bufferLectura.readLine();
+	    	  
+	    	 while (linea != null) {
+		    	 //Preparamos la entrada para crear el objeto persona
+	    		 String[] campos = linea.split("\n");
+		    	 String[] parts = campos[0].split(",");  
+		    	 Persona p = new Persona(parts[0], parts[1], Integer.parseInt(parts[2]));
+		    
+		    	 personasLista.add(p);
+		    	  
+		    	 // Volver a leer otra línea del fichero
+		    	 linea = bufferLectura.readLine();
+	    	 }
+    	} catch (IOException e) {
+    	  e.printStackTrace();
+    	  
+    	}
+    	crearAlerta(ownerWindow, "Se han exportado los datos correctamente", false, "Informacion");
     }
     
-    private void exportar() {
+    private void exportar(Window win) {
     	
+		Path path = Paths.get("");
+		String directorioActual = path.toAbsolutePath().toString();
+		
+		FileChooser fileEleccion = new FileChooser();
+		fileEleccion.setTitle("Exportar CSV");
+		fileEleccion.setInitialDirectory(new File(directorioActual));
+		fileEleccion.setInitialFileName("personas.csv");
+		
+		
+		File f =  fileEleccion.showSaveDialog(win);
     	
+        try {
+        	FileWriter csvWriter = new FileWriter(f);
+        	csvWriter.append("nombre");
+        	csvWriter.append(",");
+        	csvWriter.append("apellidos");
+        	csvWriter.append(",");
+        	csvWriter.append("edad");
+        	csvWriter.append("\n");
+        	
+	    	for (Persona rowData : personasLista) {
+	    	    csvWriter.append(rowData.getNombre());
+	    	    csvWriter.append(",");
+	    	    csvWriter.append(rowData.getApellidos());
+	    	    csvWriter.append(",");
+	    	    csvWriter.append(String.valueOf(rowData.getEdad()));
+	        	csvWriter.append("\n");
+	    	}
+	    		    	
+	    	csvWriter.flush();
+	    	csvWriter.close();
+	    	
+	    	crearAlerta(win, "Se ha exportado correctamente el archivo CSV", false, "Informacion");
+	    	
+        } catch (IOException e) {
+				e.printStackTrace();
+		}	
     }
 }
 
