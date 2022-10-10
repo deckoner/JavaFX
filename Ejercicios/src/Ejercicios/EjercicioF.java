@@ -27,7 +27,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -37,18 +36,18 @@ import model.Persona;
 
 public class EjercicioF extends Application  {
 	
-	Scene scene;
+	private Scene scene;
 	
 	//Iniciamos una observablelist de personas que añadimos al FX
-	ObservableList<Persona> personasLista = FXCollections.observableArrayList();
+	private ObservableList<Persona> personasLista = FXCollections.observableArrayList();
 	
 	//Declaramos el TableView
-	TableView<Persona> table = new TableView<>(personasLista);
+	private TableView<Persona> table = new TableView<>(personasLista);
 	
 	//Declaramos los TextFields
-	TextField nombreFld;
-	TextField apellidosFld;
-	TextField edadFld;
+	private TextField nombreFld;
+	private TextField apellidosFld;
+	private TextField edadFld;
 	
     public static void main(String[] args) {
         Application.launch(args);
@@ -347,7 +346,6 @@ public class EjercicioF extends Application  {
             tsm.clearSelection(selectedIndices[i].intValue());
             table.getItems().remove(selectedIndices[i].intValue());
         }
-
     }
 
     private void modificar(Window win) {

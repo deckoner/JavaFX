@@ -23,12 +23,12 @@ import model.Persona;
 public class EjercicioB extends Application  {
 	
 	//Iniciamos una observablelist de personas que añadimos al FX
-	ObservableList<Persona> personasLista = FXCollections.observableArrayList();
+	private ObservableList<Persona> personasLista = FXCollections.observableArrayList();
 	
 	//Declaramos los TextFields
-	TextField nombreFld;
-	TextField apellidosFld;
-	TextField edadFld;
+	private TextField nombreFld;
+	private TextField apellidosFld;
+	private TextField edadFld;
 	
     public static void main(String[] args) {
         Application.launch(args);
@@ -59,6 +59,10 @@ public class EjercicioB extends Application  {
 	    apellidoColum.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
 	    TableColumn<Persona, Integer> edadColum = new TableColumn<>("Edad");
 	    edadColum.setCellValueFactory(new PropertyValueFactory<>("edad"));
+	    
+        nombreColum.prefWidthProperty().bind(table.widthProperty().multiply(0.4)); 
+        apellidoColum.prefWidthProperty().bind(table.widthProperty().multiply(0.3)); 
+        edadColum.prefWidthProperty().bind(table.widthProperty().multiply(0.3)); 
 	    
 	    //Añadimos las columnas al TableView
 	    table.getColumns().add(nombreColum);
@@ -115,7 +119,7 @@ public class EjercicioB extends Application  {
 	    	}
 	    }
 	
-	private void AgregarPersona(){
+	private void agregarPersona(){
 		
 		//Creamos un objeto Persona con los datos introducidos por el usuario
 		Persona p = new Persona(nombreFld.getText(), apellidosFld.getText(), Integer.parseInt(edadFld.getText()));
@@ -141,7 +145,7 @@ public class EjercicioB extends Application  {
         		crearAlerta(win, txt, true, "Error");
     		} else {
     			
-    			AgregarPersona();
+    			agregarPersona();
     			
         		txt = "Se a introducido correctamente la persona a la tabla";
         		

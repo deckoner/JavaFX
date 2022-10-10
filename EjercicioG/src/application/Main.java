@@ -1,19 +1,25 @@
 package application;
 	
+import controller.TablaPerosnasController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			GridPane root = (GridPane)FXMLLoader.load(getClass().getResource("/view/Sample.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/view/Sample.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+			
+			TablaPerosnasController controlador = root.getController();
+			controlador.cargarDatos();
+			
+			primaryStage.setTitle("PERSONAS");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -41,7 +41,7 @@ public class EjercicioA extends Application {
     private Slider cineSlider;
     
     private CheckBox deporteCbx;
-    ObservableList<String> items = FXCollections.observableArrayList("Tenis", "Futbol", "Baloncesto");
+    private ObservableList<String> items = FXCollections.observableArrayList("Tenis", "Futbol", "Baloncesto");
     private ListView<String> deportes;
     private ComboBox<String> edadComBox;
     
@@ -170,8 +170,6 @@ public class EjercicioA extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("ENCUESTA");
-        String url = getClass().getResource("/application.css").toString();
-        scene.getStylesheets().add(url);
         stage.show();
     }
     
@@ -223,7 +221,7 @@ public class EjercicioA extends Application {
                         "N hermanos: " + nHermanosFld.getText() + "\n" +
                         "Edad: " + edadComBox.getValue() + "\n" +
                         "Sexo: " + genero() + "\n" +
-                        "Deportes: " + listaDeportes() + "\n" +
+                        "Deportes: " + "\n" + "\t" +listaDeportes() + "\n" +
                         "Grado de aficcion a las compras: " + String.valueOf(comprasSlider.getValue()) + "\n" +
                         "Grado de aficcion a ver la television: " + String.valueOf(verTeleSlider.getValue()) + "\n" +
                         "Grado de aficcion a ir al cine: " + String.valueOf(cineSlider.getValue()));
