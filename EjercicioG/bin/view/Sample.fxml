@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TablaPerosnasController">
    <children>
       <FlowPane hgap="10.0" prefHeight="53.0" prefWidth="617.0">
          <children>
@@ -37,7 +37,7 @@
       </TableView>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnAgregarPersona" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Agregar Persoa">
+            <Button fx:id="btnAgregarPersona" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#agregarPersona" text="Agregar Persoa">
                <FlowPane.margin>
                   <Insets right="20.0" />
                </FlowPane.margin>

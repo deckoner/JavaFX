@@ -1,2 +1,4 @@
-/controller/
 /application/
+/view/
+/controller/
+/model/

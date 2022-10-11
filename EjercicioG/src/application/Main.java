@@ -1,6 +1,6 @@
 package application;
 	
-import controller.TablaPerosnasController;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -14,11 +14,7 @@ public class Main extends Application {
 		try {
 			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/view/Sample.fxml"));
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
-			
-			TablaPerosnasController controlador = root.getController();
-			controlador.cargarDatos();
-			
+			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());		
 			primaryStage.setTitle("PERSONAS");
 			primaryStage.setScene(scene);
 			primaryStage.show();
