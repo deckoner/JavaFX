@@ -44,6 +44,7 @@ public class TablaPerosnasController implements Initializable {
 	    c1.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 	    c2.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
 	    c3.setCellValueFactory(new PropertyValueFactory<>("edad"));
+	    
 		tablePersonas.setItems(personasLista);
 	}
 	
@@ -58,11 +59,14 @@ public class TablaPerosnasController implements Initializable {
 			newStage.initOwner(this.btnAgregarPersona.getScene().getWindow());
 			newStage.setScene(newScene);
 			newStage.setTitle("Nuevo Usuario");
+			
+	        // Pasamos la lista al controlador usando el método implementado
+			AgregarPersonaController controlador = (AgregarPersonaController) loader.getController();
+			controlador.setDatos(personasLista);
+			
 			newStage.showAndWait();
-			AgregarPersonaController controlador = loader.getController();
-			controlador.cogerLista(personasLista);
 			this.tablePersonas.refresh();
-	          
+			
 	    } catch (IOException e) {
 	        Alert alert = new Alert(Alert.AlertType.ERROR);
 	        alert.setHeaderText(null);
