@@ -2,9 +2,6 @@ package model;
 
 import java.util.Objects;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Persona {
 	
 	private String nombre;
@@ -35,7 +32,11 @@ public class Persona {
 		Persona other = (Persona) obj;
 		return Objects.equals(apellidos, other.apellidos) && edad == other.edad && Objects.equals(nombre, other.nombre);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Persona [nombre=" + nombre + ", apellidos=" + apellidos + ", edad=" + edad + "]";
+	}
 
 	public String getNombre() {
 		return nombre;

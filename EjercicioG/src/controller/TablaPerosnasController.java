@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.AlertasUsuario;
 import model.Persona;
 import javafx.scene.control.TableColumn;
 
@@ -51,18 +54,18 @@ public class TablaPerosnasController implements Initializable {
 	@FXML
     void agregarPersona(ActionEvent event) {
 		try{
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AgregarPersona.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NuevaModificarPersona.fxml"));
 			Parent root = loader.load();
 			Scene newScene = new Scene(root);
 			Stage newStage = new Stage();
 			newStage.initModality(Modality.APPLICATION_MODAL);
 			newStage.initOwner(this.btnAgregarPersona.getScene().getWindow());
 			newStage.setScene(newScene);
-			newStage.setTitle("Nuevo Usuario");
+			newStage.setTitle("Añadir Persona");
 			
 	        // Pasamos la lista al controlador usando el método implementado
 			AgregarPersonaController controlador = (AgregarPersonaController) loader.getController();
-			controlador.setDatos(personasLista);
+			controlador.setDatos(personasLista, false, null);
 			
 			newStage.showAndWait();
 			this.tablePersonas.refresh();
@@ -75,4 +78,60 @@ public class TablaPerosnasController implements Initializable {
 	        alert.showAndWait();
 	    }
 	}
+
+    @FXML
+    void eliminarPersona(ActionEvent event) {
+    	Persona p = tablePersonas.getSelectionModel().getSelectedItem();    
+    	
+    	if (p == null) {
+    		AlertasUsuario.crearAlertaError(btnEliminarPersona.getScene().getWindow(), "Porfavor Selecione un elemento a borrar", "Error");
+    		
+    	} else {
+            personasLista.remove(p);
+            
+    	}
+    }
+
+    @FXML
+    void modificarPersona(ActionEvent event) {
+    	
+    	Persona p = tablePersonas.getSelectionModel().getSelectedItem();    
+    	
+    	if (p == null) {
+    		AlertasUsuario.crearAlertaError(btnEliminarPersona.getScene().getWindow(), "Porfavor Selecione un elemento a modificar", "Error");
+    		
+    	} else {
+    		
+    		try{
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/NuevaModificarPersona.fxml"));
+    			Parent root = loader.load();
+    			Scene newScene = new Scene(root);
+    			Stage newStage = new Stage();
+    			newStage.initModality(Modality.APPLICATION_MODAL);
+    			newStage.initOwner(this.btnModificarPersona.getScene().getWindow());
+    			newStage.setScene(newScene);
+    			newStage.setTitle("Modificar Persona");
+    			
+    	        // Pasamos la lista al controlador usando el método implementado
+    			AgregarPersonaController controlador = (AgregarPersonaController) loader.getController();
+    			controlador.setDatos(personasLista, true, p );
+    			
+    			newStage.showAndWait();
+    			this.tablePersonas.refresh();
+    			
+    	    } catch (IOException e) {
+    	        Alert alert = new Alert(Alert.AlertType.ERROR);
+    	        alert.setHeaderText(null);
+    	        alert.setTitle("Error");
+    	        alert.setContentText(e.getMessage());
+    	        alert.showAndWait();
+    	   }
+    	}
+    }
+    
+    @FXML
+    void filtroTiempoReal(KeyEvent event) {
+
+    }
+    
 }
