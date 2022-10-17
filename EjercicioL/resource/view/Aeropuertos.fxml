@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Label" />
+      <FlowPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <RadioButton mnemonicParsing="false" text="RadioButton" />
+            <RadioButton mnemonicParsing="false" text="RadioButton" />
+            <Label text="Label" />
+            <TextField />
+         </children>
+      </FlowPane>
+   </children>
+</VBox>
