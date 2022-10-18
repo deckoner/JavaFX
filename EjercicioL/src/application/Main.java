@@ -11,9 +11,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/view/avionesLogin.fxml"));
+			VBox root = (VBox)FXMLLoader.load(getClass().getResource("/view/AvionesLogin.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
+			primaryStage.setResizable(false);
 			primaryStage.setTitle("AVIONES - LOGIN");
 			primaryStage.setScene(scene);
 			primaryStage.show();

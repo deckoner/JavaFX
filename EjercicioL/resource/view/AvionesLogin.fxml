@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="212.0" maxWidth="364.0" minHeight="212.0" minWidth="364.0" prefHeight="212.0" prefWidth="364.0" scaleShape="false" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.avionesLoginController">
+<VBox alignment="CENTER" fillWidth="false" maxHeight="212.0" maxWidth="364.0" minHeight="212.0" minWidth="364.0" prefHeight="212.0" prefWidth="364.0" scaleShape="false" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AvionesLoginController">
    <children>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="58.0" prefWidth="502.0">
          <children>
