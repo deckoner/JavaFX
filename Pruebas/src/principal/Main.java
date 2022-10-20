@@ -1,7 +1,6 @@
 package principal;
 
 import java.sql.*;
-
 import com.mysql.jdbc.PreparedStatement;
 
 public class Main {

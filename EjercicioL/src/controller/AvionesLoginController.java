@@ -7,11 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.AlertasUsuario;
 import java.io.IOException;
-import java.sql.Connection;
 import dao.ConecxionBD;
 import javafx.event.ActionEvent;
 
@@ -25,20 +23,14 @@ public class AvionesLoginController {
 
 	// Event Listener on Button[#btnLogin].onAction
 	@FXML
-	public void logearse(ActionEvent event) {
-		String userUsuario = tfUsuario.getText();
-		String pwdUsuario = pfContrasena.getText();
-		
-		try {
+	public void logearse(ActionEvent event) {		
+		try {			
 			
-			Connection con = ConecxionBD.conectar("admin", "admin");
+			System.out.println(tfUsuario.getText());
+			System.out.println(tfUsuario.getText().toString());
 			
 			//Comparamos las credenciales de acceso
-			if (con == null) {
-				
-				String txt = "El usuario y/o contraseña introducidas no son correctas";
-				AlertasUsuario.crearAlertaError(btnLogin.getScene().getWindow(), txt, "Error al iniciar sesion");
-			} else {
+			if (ConecxionBD.verificarUsuario(tfUsuario.getText().toString(), pfContrasena.getText().toString())) {
 				
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Aeropuertos.fxml"));
 				Parent root = loader.load();
@@ -50,12 +42,15 @@ public class AvionesLoginController {
 				newStage.show();
 				
 				//cerramos la ventana de login
-				((Stage) btnLogin.getScene().getWindow()).close();			
+				((Stage) btnLogin.getScene().getWindow()).close();	
+			} else {
+				
+				String txt = "El usuario y/o contraseña introducidas no son correctas";
+				AlertasUsuario.crearAlertaError(btnLogin.getScene().getWindow(), txt, "Error al iniciar sesion");	
 			}
 			
 		} catch (IOException e) {
 			
-			e.printStackTrace();
 			AlertasUsuario.crearAlertaError(btnLogin.getScene().getWindow(), "El archivo de configuracion no existe", "Error al iniciar sesion");
 		}
 	}
