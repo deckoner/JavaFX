@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.AlertasUsuario;
+
 public class ConecxionBD {
 	public static Connection conectar() {
 		try {
@@ -42,14 +44,18 @@ public class ConecxionBD {
 			rs.next();
 			
 			//Comprobamos que el usuario y contraseña sean corectos
-	
-			System.out.println(rs.getString("usuario"));
+			if (user.equals(rs.getString("usuario")) && pwd.equals(rs.getString("password"))) {
+				
+				return true;
+			} else {
+				
+				return false;
+			}
+
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			return false;
 		}
-		
-		return false;
 	}
 }

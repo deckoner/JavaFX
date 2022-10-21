@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fillWidth="false" maxHeight="473.0" maxWidth="736.0" minHeight="476.0" minWidth="736.0" prefHeight="473.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller/AeropuertosController">
+<VBox fillWidth="false" maxHeight="473.0" maxWidth="736.0" minHeight="476.0" minWidth="736.0" prefHeight="473.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AeropuertosController">
    <children>
       <MenuBar prefHeight="27.0" prefWidth="755.0">
         <menus>
