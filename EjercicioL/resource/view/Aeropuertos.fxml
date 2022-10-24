@@ -72,7 +72,7 @@
                   <TableColumn fx:id="cPais" prefWidth="75.0" text="Pais" />
                   <TableColumn fx:id="cCiudad" prefWidth="75.0" text="Ciudad" />
                   <TableColumn fx:id="cCalle" prefWidth="75.0" text="Calle" />
-                  <TableColumn fx:id="cNumeroAsientos" prefWidth="75.0" text="Numero de asientos" />
+                  <TableColumn fx:id="cNumeroAsientos" prefWidth="75.0" text="Numero" />
                   <TableColumn fx:id="cYear" prefWidth="75.0" text="Año" />
                   <TableColumn fx:id="cCapacidad" prefWidth="75.0" text="Capacidad" />
                   <TableColumn fx:id="cNSocios" prefWidth="75.0" text="N Socios" />

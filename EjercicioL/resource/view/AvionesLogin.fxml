@@ -18,7 +18,7 @@
                   <Insets />
                </FlowPane.margin>
             </Label>
-            <TextField fx:id="tfUsuario">
+            <TextField fx:id="tfUsuario" onKeyPressed="#pulsaIntroUser">
                <FlowPane.margin>
                   <Insets left="5.0" />
                </FlowPane.margin>
@@ -32,7 +32,7 @@
                   <Insets />
                </FlowPane.margin>
             </Label>
-            <PasswordField fx:id="pfContrasena" />
+            <PasswordField fx:id="pfContrasena" onKeyPressed="#pulsaIntroPwd" />
          </children>
       </FlowPane>
       <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logearse" prefHeight="37.0" prefWidth="163.0" text="Login">

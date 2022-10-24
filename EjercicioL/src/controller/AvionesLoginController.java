@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.AlertasUsuario;
 import java.io.IOException;
@@ -21,12 +22,23 @@ public class AvionesLoginController {
 	@FXML
 	private Button btnLogin;
 
-	// Event Listener on Button[#btnLogin].onAction
 	@FXML
 	public void logearse(ActionEvent event) {		
-		System.out.println(tfUsuario.getText());
-		System.out.println(tfUsuario.getText().toString());
-			
+		login();
+	}
+	
+    @FXML
+    void pulsaIntroPwd(KeyEvent event) {
+
+    }
+
+    @FXML
+    void pulsaIntroUser(KeyEvent event) {
+    	
+    }
+    
+    private void login() {
+    				
 		//Comparamos las credenciales de acceso
 		if (ConecxionBD.verificarUsuario(tfUsuario.getText().toString(), pfContrasena.getText().toString())) {
 			
@@ -55,6 +67,6 @@ public class AvionesLoginController {
 				
 			String txt = "El usuario y/o contraseña introducidas no son correctas";
 			AlertasUsuario.crearAlertaError(btnLogin.getScene().getWindow(), txt, "Error al iniciar sesion");	
-		}
-	}
+		}	
+    }
 }
