@@ -6,7 +6,8 @@ public class AeropuertoPublico {
 	
 	int id, capacidadNSocios, nAsientos, numero, age;
 
-	public AeropuertoPublico(int id, String nombre, String pais, String ciudad, String calle, int numero, int age, int capacidadNSocios) {
+	public AeropuertoPublico(int id, String nombre, String pais, String ciudad, String calle,
+			int numero, int age, int capacidadNSocios) {
 		super();
 		this.nombre = nombre;
 		this.pais = pais;
