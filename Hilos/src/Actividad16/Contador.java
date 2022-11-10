@@ -3,20 +3,35 @@ package Actividad16;
 class Contador {
 	
 	private int c=0;
+	boolean salir=false;
 	
-	public Contador (int c) { 
+	Contador (int c) { 
 		this.c = c; 
+		
 	}
 	
-	public void incrementa() {
-		c=c+1;
+	public synchronized void incrementa() {
+        c+=1;
+        
 	}
 	
-	public void decrementa() {
-		c=c-1;
+	public synchronized void decrementa() {
+        try{ 
+        	
+        	while (salir==false){
+        		this.wait();
+        		salir=true;
+        		
+        	}
+        } catch( InterruptedException e ){}
+        c--;
+        
+        this.notify();
 	}
 	
-	public int getValor() {
+	public synchronized int getValor() {
+		
+		this.notify();
 		return c; 
 	}
 }
