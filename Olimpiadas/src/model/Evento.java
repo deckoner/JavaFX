@@ -61,4 +61,9 @@ public class Evento {
 	public void setDeporte(String deporte) {
 		this.deporte = deporte;
 	}
+
+	@Override
+	public String toString() {
+		return id + " - " + nombre;
+	}
 }

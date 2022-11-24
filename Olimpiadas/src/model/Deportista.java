@@ -62,6 +62,9 @@ public class Deportista {
 	public void setEquipo(String equipo) {
 		this.equipo = equipo;
 	}
+
+	@Override
+	public String toString() {
+		return id + " - " + nombre;
+	}
 }
-
-

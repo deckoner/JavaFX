@@ -56,7 +56,7 @@ public class TableViewCellFactoryTest extends Application {
 		babyCol.setCellValueFactory(
 				cellData -> {
 					Person p = cellData.getValue();
-					Boolean v = (p.getAgeCategory() == Person.AgeCategory.BABY);
+					Boolean v = true;
 					return new ReadOnlyBooleanWrapper(v);
 				});
 

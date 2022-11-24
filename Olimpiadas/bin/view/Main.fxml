@@ -10,8 +10,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -21,37 +19,48 @@
         <menus>
           <Menu mnemonicParsing="false" text="Deportistas">
             <items>
-                  <MenuItem fx:id="deportistaMasInfo" mnemonicParsing="false" onAction="#masInforDeportista" text="Mas informacion de deportista" />
-              <MenuItem fx:id="deportistaAnadir" mnemonicParsing="false" onAction="#andirDeportista" text="Añadir deportista" />
-                  <MenuItem fx:id="deportistaModificar" mnemonicParsing="false" text="Modificar deportista" />
+                  <MenuItem mnemonicParsing="false" onAction="#masInfoDeportista" text="Mas informacion de deportista" />
+              	  <MenuItem mnemonicParsing="false" onAction="#andirDeportista" text="Añadir deportista" />
+                  <MenuItem mnemonicParsing="false" onAction="#modificarDeportista" text="Modificar deportista" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarDeportista" text="Eliminar Deportista" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Olimpiadas">
             <items>
-              <MenuItem fx:id="olimMasInfo" mnemonicParsing="false" onAction="#masInfoOlim" text="Mas informacion olimpiada" />
-                  <MenuItem fx:id="olimpiadaAnadir" mnemonicParsing="false" onAction="#anadirOlim" text="Añadir olimpiada" />
-                  <MenuItem fx:id="olimModificar" mnemonicParsing="false" text="Modificar olimpiada" />
+              <MenuItem mnemonicParsing="false" onAction="#masInfoOlim" text="Mas informacion olimpiada" />
+                  <MenuItem mnemonicParsing="false" onAction="#anadirOlim" text="Añadir olimpiada" />
+                  <MenuItem mnemonicParsing="false" text="Modificar olimpiada" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarOlimpiada" text="Eliminar Olimpiada" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Participaciones">
             <items>
-              <MenuItem fx:id="participaMasInfo" mnemonicParsing="false" onAction="#masInfoParticipacion" text="Mas informacion participacion" />
-                  <MenuItem fx:id="participacionAnadir" mnemonicParsing="false" onAction="#andirParticipacion" text="Añadir participacion" />
-                  <MenuItem fx:id="participacionModificar" mnemonicParsing="false" onAction="#modificarParticipacion" text="Modificar participacion" />
+              <MenuItem mnemonicParsing="false" onAction="#masInfoParticipacion" text="Mas informacion participacion" />
+                  <MenuItem mnemonicParsing="false" onAction="#anadirParticipacion" text="Añadir participacion" />
+                  <MenuItem mnemonicParsing="false" onAction="#modificarParticipacion" text="Modificar participacion" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarParticipacion" text="Eliminar participacion" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Eventos">
               <items>
-                <MenuItem fx:id="eventoMasInfo" mnemonicParsing="false" onAction="#masInfoEvento" text="Mas informacion evento" />
-                  <MenuItem fx:id="eventoAnadir" mnemonicParsing="false" onAction="#anadirEvento" text="Añadir evento" />
-                  <MenuItem fx:id="eventoModificar" mnemonicParsing="false" onAction="#modificarEvento" text="Modificar evento" />
+                <MenuItem mnemonicParsing="false" onAction="#masInfoEvento" text="Mas informacion evento" />
+                  <MenuItem mnemonicParsing="false" onAction="#anadirEvento" text="Añadir evento" />
+                  <MenuItem mnemonicParsing="false" onAction="#modificarEvento" text="Modificar evento" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarEvento" text="Eliminar evento" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Equipo">
               <items>
-                <MenuItem fx:id="equipoMasInfo" mnemonicParsing="false" onAction="#masInfoEquipo" text="Mas informacion equipo" />
-                  <MenuItem fx:id="equipoAnadir" mnemonicParsing="false" onAction="#anadirEquipo" text="Añadir equipo" />
-                  <MenuItem fx:id="equipoModificar" mnemonicParsing="false" onAction="#modificarEquipo" text="Modificar equipo" />
+                  <MenuItem mnemonicParsing="false" onAction="#anadirEquipo" text="Añadir equipo" />
+                  <MenuItem mnemonicParsing="false" onAction="#modificarEquipo" text="Modificar equipo" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarEquipo" text="Eliminar equipo" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Deporte">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#andirDeporte" text="Añadir deporte" />
+                  <MenuItem mnemonicParsing="false" onAction="#modificarDeporte" text="Modificar deporte" />
+                  <MenuItem mnemonicParsing="false" onAction="#eliminarDeporte" text="Eliminar deporte" />
               </items>
             </Menu>
         </menus>
@@ -63,21 +72,15 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <FlowPane alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="652.0">
-               <children>
-                  <Label contentDisplay="CENTER" text="Filtro nombre: " />
-                  <TextField fx:id="tfFiltro" onAction="#filtrarAccion" onKeyPressed="#filtrarTecla" prefHeight="24.0" prefWidth="161.0" />
-               </children>
-            </FlowPane>
-            <TabPane prefHeight="370.0" prefWidth="765.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tpTablas" prefHeight="469.0" prefWidth="765.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Deportistas">
                      <content>
                         <TableView fx:id="tablaDeportista" prefHeight="401.0" prefWidth="785.0">
                           <columns>
-                            <TableColumn fx:id="idDeportista" prefWidth="78.0" text="id" />
                             <TableColumn fx:id="nombreDeportista" prefWidth="113.0" text="Nombre" />
                               <TableColumn fx:id="generoDeportsta" prefWidth="71.0" text="Genero" />
+                              <TableColumn fx:id="alturaDeportista" prefWidth="75.0" text="Altura" />
                               <TableColumn fx:id="pesoDeportsta" prefWidth="75.0" text="Peso" />
                               <TableColumn fx:id="equipoDeportsta" prefWidth="75.0" text="Ultimo Equipo" />
                           </columns>
@@ -87,9 +90,10 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                    <MenuItem fx:id="cmDeportistaMasInfo" mnemonicParsing="false" onAction="#masInforDeportista" text="Mas informacion" />
-                                  <MenuItem fx:id="cmDeportistaAnadir" mnemonicParsing="false" onAction="#andirDeportista" text="Añadir" />
-                                    <MenuItem fx:id="cmDeportistaModificar" mnemonicParsing="false" onAction="#modificarDeportista" text="Unspecified Action" />
+                                    <MenuItem mnemonicParsing="false" onAction="#masInfoDeportista" text="Mas informacion" />
+                                  <MenuItem mnemonicParsing="false" onAction="#andirDeportista" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarDeportista" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarDeportista" text="Eliminar" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>
@@ -100,8 +104,7 @@
                      <content>
                         <TableView fx:id="tablaOlimpiada" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn fx:id="idOlimpiada" prefWidth="75.0" text="id" />
-                            <TableColumn fx:id="nombreOlimpiada" prefWidth="75.0" text="nombre" />
+                            <TableColumn fx:id="nombreOlimpiada" prefWidth="75.0" text="Nombre" />
                               <TableColumn fx:id="anioOlimpiada" prefWidth="75.0" text="Año" />
                               <TableColumn fx:id="temporadaOlimpiada" prefWidth="75.0" text="Temporada" />
                               <TableColumn fx:id="ciudadOlimpiada" prefWidth="75.0" text="Ciudad" />
@@ -112,20 +115,46 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                    <MenuItem fx:id="cmOlimMasInfo" mnemonicParsing="false" onAction="#masInfoOlim" text="Mas informacion" />
-                                  <MenuItem fx:id="cmOlimpiadaAnadir" mnemonicParsing="false" onAction="#anadirOlim" text="Añadir" />
-                                    <MenuItem fx:id="cmOlimModificar" mnemonicParsing="false" onAction="#modificarOlim" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#masInfoOlim" text="Mas informacion" />
+                                  <MenuItem mnemonicParsing="false" onAction="#anadirOlim" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarOlim" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarOlimpiada" text="Eliminar" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>
                         </TableView>
                      </content>
                 </Tab>
+                  <Tab text="Participacion">
+                     <content>
+                        <TableView fx:id="tablaParticipacion" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="nomDeportistaParticipacion" prefWidth="75.0" text="Deportista" />
+                            <TableColumn fx:id="nomEventoParticipacion" prefWidth="75.0" text="Evento" />
+                              <TableColumn fx:id="nomEquipoParticipacion" prefWidth="75.0" text="Equipo" />
+                              <TableColumn fx:id="edadParticipacion" prefWidth="75.0" text="Edad" />
+                              <TableColumn fx:id="medallaParticipacion" prefWidth="75.0" text="Medalla" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#masInfoParticipacion" text="Mas informacion" />
+                                    <MenuItem mnemonicParsing="false" onAction="#anadirParticipacion" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarParticipacion" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarParticipacion" text="Eliminar" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </content>
+                  </Tab>
                   <Tab text="Eventos">
                      <content>
                         <TableView fx:id="tablaEvento" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                              <TableColumn fx:id="idEvento" prefWidth="75.0" text="id" />
                             <TableColumn fx:id="nombreEvento" prefWidth="75.0" text="Nombre" />
                               <TableColumn fx:id="nombreOlimEvento" prefWidth="75.0" text="Olimpiada" />
                             <TableColumn fx:id="nombreDeporteEvento" prefWidth="75.0" text="Deporte" />
@@ -136,9 +165,53 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem fx:id="cmEventoMasInfo" mnemonicParsing="false" onAction="#masInfoEvento" text="Mas informacion" />
-                                    <MenuItem fx:id="cmEventoAnadir" mnemonicParsing="false" onAction="#anadirEvento" text="Añadir" />
-                                    <MenuItem fx:id="cmEventoModificar" mnemonicParsing="false" onAction="#modificarEvento" text="Unspecified Action" />
+                                  <MenuItem mnemonicParsing="false" onAction="#masInfoEvento" text="Mas informacion" />
+                                    <MenuItem mnemonicParsing="false" onAction="#anadirEvento" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarEvento" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarEvento" text="Eliminar" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </content>
+                  </Tab>
+                  <Tab text="Equipo">
+                     <content>
+                        <TableView fx:id="tablaEquipo" prefHeight="469.0" prefWidth="765.0">
+                          <columns>
+                            <TableColumn fx:id="nombreEquipo" prefWidth="75.0" text="Nombre" />
+                              <TableColumn fx:id="inicialesEquipo" prefWidth="75.0" text="Iniciales" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <contextMenu>
+                              <ContextMenu>
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#anadirEquipo" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarEquipo" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarEquipo" text="Eliminar" />
+                                 </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </TableView>
+                     </content>
+                  </Tab>
+                  <Tab text="Deporte">
+                     <content>
+                        <TableView fx:id="tablaDeporte" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="nombreDeporte" prefWidth="75.0" text="Nombre" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#andirDeporte" text="Añadir" />
+                                    <MenuItem mnemonicParsing="false" onAction="#modificarDeporte" text="Modificar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#eliminarDeporte" text="Eliminar" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>

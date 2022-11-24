@@ -53,4 +53,11 @@ public class Olimpiada {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
+
+	@Override
+	public String toString() {
+		return id + "-" + nombre;
+	}
+	
+	
 }
