@@ -8,7 +8,7 @@ public class Ejemplo4 {
 
 	public static void main (String[]args){
 
-		int Puerto = 5000;
+		int Puerto = 6000;
 
 		try {
 
@@ -18,9 +18,6 @@ public class Ejemplo4 {
 
 			// Realiza la conexión con cliente 1
 			Socket cliente1=Servidor.accept();
-
-			// Realiza la conexión con cliente 2
-			Socket cliente2=Servidor.accept();
 
 			// Cierra la conexión
 			Servidor.close();

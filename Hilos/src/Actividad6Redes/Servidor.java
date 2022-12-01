@@ -1,57 +1,48 @@
 package Actividad6Redes;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Servidor {
 
-	public static void main (String[]args){
+	public static void main (String[]args) throws IOException{
 
-		int puerto = 6010;
+		int Puerto = 6000;
 
-		try {
-			ServerSocket ss = new ServerSocket(puerto); //Socket del servidor
-			Socket cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
+		ServerSocket servidor = new ServerSocket (Puerto);
 
-			
-			System.out.println("Esperando..."); //Esperando conexión
+		Socket clienteConectado = null;
 
-            cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
+		clienteConectado = servidor.accept();
 
-            System.out.println("Cliente en línea");
+		// Creación del flujo de entrada del cliente
+		InputStream entrada = null;
+		entrada = clienteConectado.getInputStream();
+		DataInputStream flujoEntrada = new DataInputStream (entrada);
 
-            //Se obtiene el flujo de salida del cliente para enviarle mensajes
-            DataOutputStream salidaCliente = new DataOutputStream(cs.getOutputStream());
+		// El cliente envía un mensaje al servidor
+		int n = Integer.valueOf(flujoEntrada.readUTF());
+		int n2 = n*n;
 
-            //Se le envía un mensaje al cliente usando su flujo de salida
-            salidaCliente.writeUTF("Petición recibida y aceptada");
+		// Flujo de salida hacia el cliente
+		OutputStream salida=null;
+		salida = clienteConectado.getOutputStream();
+		DataOutputStream flujoSalida = new DataOutputStream (salida);
 
-            //Se obtiene el flujo entrante desde el cliente
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-            
-            //Creamos el String del mensaje
-            String mensajeServidor;
-            
-            //Mientras haya mensajes desde el cliente
-            while((mensajeServidor = entrada.readLine()) != null)
-            {
-                //Se muestra por pantalla el mensaje recibido
-                System.out.println(mensajeServidor);
-            }
+		////// Envio un saludo al Cliente
+		flujoSalida.writeUTF(String.valueOf(n2));
 
-            System.out.println("Fin de la conexión");
-
-            ss.close();//Se finaliza la conexión con el cliente
-
-		} catch (IOException e) {
-
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		} 
-	}
+		////// Cerrar streams y sockets
+		entrada.close();
+		flujoEntrada.close();
+		salida.close();
+		flujoSalida.close();
+		clienteConectado.close();
+		servidor.close(); 
+	} 
 }
